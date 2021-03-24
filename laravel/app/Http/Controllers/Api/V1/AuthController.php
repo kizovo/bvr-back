@@ -8,17 +8,15 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
-class AuthController extends Controller {
-
-    public $successStatus = 200;
-
+class AuthController extends Controller
+{
     public function login() {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
 
             $result['data'] = [
                 'user' => $user,
-                'token' => $user->createToken('nApp')->accessToken
+                'token' => $user->createToken('authToken')->accessToken
             ];
             return $this->trJsonSuccess($result, 200, 'Success Login');
         } else {
@@ -33,7 +31,7 @@ class AuthController extends Controller {
 
         $result['data'] = [
             'user' => $user,
-            'token' => $user->createToken('nApp')->accessToken
+            'token' => $user->createToken('authToken')->accessToken
         ];
 
         return $this->trJsonSuccess($result, 200, 'Success Register');

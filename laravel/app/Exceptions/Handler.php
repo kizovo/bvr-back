@@ -3,12 +3,14 @@
 namespace App\Exceptions;
 
 use App\Http\Traits\ApiResponseTrait;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Throwable;
 class Handler extends ExceptionHandler
 {
@@ -35,6 +37,19 @@ class Handler extends ExceptionHandler
     ];
 
     /**
+     * Report the exception handling callbacks for the application.
+     *
+     * @return void
+     */
+    public function report(Throwable $exception)
+    {
+        if ($this->shouldReport($exception) && app()->bound('sentry')) {
+            app('sentry')->captureException($exception);
+        }
+        parent::report($exception);
+    }
+
+    /**
      * Register the exception handling callbacks for the application.
      *
      * @return void
@@ -54,8 +69,16 @@ class Handler extends ExceptionHandler
                 return $this->trJsonError(401, $e->getMessage());
             });
 
+            $this->renderable(function (BindingResolutionException $e) {
+                return $this->trJsonError(500, $e->getMessage());
+            });
+
             $this->renderable(function (ErrorException $e) {
                 return $this->trJsonError(500, $e->getMessage());
+            });
+
+            $this->renderable(function (MethodNotAllowedHttpException $e) {
+                return $this->trJsonError(405, $e->getMessage());
             });
 
             $this->renderable(function (ModelNotFoundException $e) {

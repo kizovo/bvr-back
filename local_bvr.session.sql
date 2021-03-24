@@ -1,1 +1,1 @@
-SELECT * FROM bvr.migrations
+SELECT * FROM bvr.users

@@ -15,7 +15,8 @@
         "laravel/framework": "^8.12",
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
-        "pragmarx/health": "^1.0"
+        "pragmarx/health": "^1.0",
+        "sentry/sentry-laravel": "^2.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
