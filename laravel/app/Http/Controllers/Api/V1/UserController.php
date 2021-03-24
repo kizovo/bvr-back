@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function profile() {
         $result['data'] = [
-            'user' => User::user()
+            'user' => Auth::user()
         ];
         return $this->trJsonSuccess($result, 200);
     }

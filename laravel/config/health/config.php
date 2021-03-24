@@ -45,7 +45,7 @@ return [
         |
         */
         'enabled' => [
-            'API',
+            //'API',
             'AppKey',
             // 'Adyen',
             // 'Broadcasting',
@@ -72,12 +72,12 @@ return [
             // 'MailgunConnectable',
             // 'MemcachedConnectable',
             'MigrationsUpToDate',
-            'MySql',
+            //'MySql',
             'MySqlConnectable',
             // 'NewrelicDeamon',
-            'NginxServer',
+            //'NginxServer',
             // 'PackagesUpToDate',
-            'Php',
+            //'Php',
             // 'PostgreSqlConnectable',
             // 'PostgreSqlServer',
             'Queue',
