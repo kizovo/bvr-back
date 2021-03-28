@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -50,15 +50,15 @@ class User extends Authenticatable
         $user = $query->create($input);
         return [
             'user' => $user,
-            'token' => $user->createToken('authToken')->accessToken
+            'token' => $user->createToken('authToken', ['*'])->accessToken
         ];
     }
 
     public function scopeAuthUserDetail() {
-        $user = Auth::guard('web')->user();
+        $user = Auth::guard('web-admin')->user();
         return [
             'user' => $user,
-            'token' => $user->createToken('authToken')->accessToken
+            'token' => $user->createToken('authToken', ['*'])->accessToken
         ];
     }
 }

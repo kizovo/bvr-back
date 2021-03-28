@@ -27,6 +27,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         if (!$this->app->routesAreCached()) {
+            Passport::tokensCan([
+                'create' => 'can add',
+                'update' => 'can update',
+                'delete' => 'can delete',
+            ]);
             Passport::routes();
             Passport::personalAccessTokensExpireIn(now()->addDays(1));
             Passport::tokensExpireIn(now()->addDays(1));

@@ -18,13 +18,21 @@ use App\Http\Controllers\Api\V1\UserController;
 */
 
 Route::group(['namespace' => 'Api\V1'], function(){
-    Route::get('init', [InitController::class, 'index']);
+    // Frontend Auth Route
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
-
-    Route::group(['middleware' => ['auth:api']], function() {
-        Route::get('profile', [UserController::class, 'profile']);
-
-        Route::post('test-mail', [TestController::class, 'sendMail']);
+    // Admin Auth Route
+    Route::group(['prefix' => config('app.admin_route')], function(){
+        Route::post('login', [AuthController::class, 'adminLogin']);
+        Route::post('register', [AuthController::class, 'adminRegister']);
     });
+
+    // User Should Authenticated
+    Route::get('profile', [UserController::class, 'profile'])->middleware(['auth:api']);
+    Route::post('test-mail', [TestController::class, 'sendMail'])->middleware(['auth:api']);
+    // Admin Should Authenticated
+    Route::get('dashboard', [TestController::class, 'dashboard'])->middleware(['auth:api-admin']);
+
+    // Free Access
+    Route::get('init', [InitController::class, 'index']);
 });

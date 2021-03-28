@@ -12,4 +12,8 @@ class TestController extends Controller
         Mail::to("someone@domain.com")->send(new TestMail());
         return $this->trJsonSuccess([], 200, 'Success send test email.');
     }
+
+    public function dashboard() {
+        dd('dashboard admin');
+    }
 }
