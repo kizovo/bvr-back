@@ -1,4 +1,5 @@
-FROM nginx:alpine
+# FROM nginx:alpine
+FROM fholzer/nginx-brotli
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
