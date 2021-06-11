@@ -41,9 +41,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-                "barryvdh/laravel-debugbar"
-            ]
+            "dont-discover": []
         }
     },
     "autoload": {

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Barryvdh\Debugbar\Facade as Debugbar;
 
 class AppServiceProvider extends ServiceProvider
 {
