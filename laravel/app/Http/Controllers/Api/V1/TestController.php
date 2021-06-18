@@ -20,6 +20,7 @@ class TestController extends Controller
     }
 
     public function dashboard() {
-        dd('dashboard admin');
+        // dd('dashboard admin');
+        return 'dashboard admin';
     }
 }

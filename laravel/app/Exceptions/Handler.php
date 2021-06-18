@@ -82,7 +82,7 @@ class Handler extends ExceptionHandler
             });
 
             $this->renderable(function (ModelNotFoundException $e) {
-                return $this->trJsonError(404, 'Entry for '.str_replace('App\\', '', $e->getModel()).' not found');
+                return $this->trJsonError(404, 'Entry for '.str_replace(\App::class, '', $e->getModel()).' not found');
             });
 
             $this->renderable(function (NotFoundHttpException $e) {

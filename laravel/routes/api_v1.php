@@ -18,10 +18,10 @@ use App\Http\Controllers\Api\V1\UserController;
 */
 
 Route::group(['namespace' => 'Api\V1'], function(){
-    // Frontend Auth Route
+    // Frontend Auth
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
-    // Admin Auth Route
+    // Admin Auth
     Route::group(['prefix' => config('app.admin_route')], function(){
         Route::post('login', [AuthController::class, 'adminLogin']);
         Route::post('register', [AuthController::class, 'adminRegister']);
@@ -34,6 +34,6 @@ Route::group(['namespace' => 'Api\V1'], function(){
     // Admin Should Authenticated
     Route::get('dashboard', [TestController::class, 'dashboard'])->middleware(['auth:api-admin', 'cacheResponse:300']);
 
-    // Free Access
-    Route::get('init', [InitController::class, 'index'])->middleware('cacheResponse:300');
+    // No Authenticated
+    Route::get('/', [InitController::class, 'index'])->middleware('cacheResponse:300');
 });

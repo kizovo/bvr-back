@@ -654,6 +654,7 @@ services:
   ### Redis ################################################
     redis:
       build: ./redis
+      # command: redis-server --requirepass bvrredis
       volumes:
         - ${DATA_PATH_HOST}/redis:/data
       ports:
@@ -1905,4 +1906,3 @@ services:
       volumes:
         - ./react:/usr/src/app/react
         - /usr/src/app/react/node_modules
-
